@@ -1,5 +1,0 @@
-Remaining Stuff:
-  1. JWT from the api as a successful verification of proof
-  2. Merkle Tree inclusion
-  3. Desiging the identity of the user
-
