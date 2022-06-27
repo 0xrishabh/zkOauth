@@ -7,7 +7,7 @@ For any apps that wants to protect user privacy, need to use two components -
 	* Creating anonymous identity
 	* Relayers
 
-And zk-Oauth will provide both of these components as a simple plug & play.
+And zk-Oauth will provide both of these components as a simple plug.
 
 
 
