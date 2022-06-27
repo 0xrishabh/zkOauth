@@ -84,7 +84,10 @@ app.post("/register",jsonParser, async (req,res) => {
 		    fs.writeFile(__dirname+'/leaves.json', json, 'utf8',()=>{}); // write it back 
 		}
 	});
-	res.sendStatus(200);
+
+	res.setHeader('Content-Type', 'application/json');
+	res.end(JSON.stringify({ "sucess": true }));
+	//res.sendStatus(200);
 })
 
 app.post("/login",jsonParser, async (req,res) => {
