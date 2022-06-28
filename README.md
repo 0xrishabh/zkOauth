@@ -27,3 +27,14 @@ And zk-Oauth will provide both of these components as a simple plug.
 * This commitmentId acts like the unique identifier of the user for the other dapp* 
 
 
+## setup:
+
+1. `yarn install`
+2. `yarn compile`
+3. `yarn test`
+4. `yarn dev`
+5. `yarn deploy --network localhost`
+6. `node relayer/src/index.js`
+
+Go to http://localhost:3000/
+
