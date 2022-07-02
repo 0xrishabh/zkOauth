@@ -7,6 +7,30 @@ import { providers,Contract, utils } from "ethers"
 import { Strategy, ZkIdentity } from "@zk-kit/identity"
 import { generateMerkleProof, Semaphore } from "@zk-kit/protocols"
 import styles from "../styles/Home.module.css"
+import { ToastContainer, toast } from 'react-toastify';
+import 'react-toastify/dist/ReactToastify.css';
+const success = (message) => {
+	toast.success(message, {
+	  position: "bottom-right",
+	  autoClose: 5000,
+	  hideProgressBar: false,
+	  closeOnClick: true,
+	  pauseOnHover: true,
+	  draggable: true,
+	  progress: undefined,
+	});
+};
+const error = (message) => {
+	toast.error(message, {
+	  position: "top-center",
+	  autoClose: 5000,
+	  hideProgressBar: false,
+	  closeOnClick: true,
+	  pauseOnHover: true,
+	  draggable: true,
+	  progress: undefined,
+	});
+};
 
 async function getAllMembers(id){
     let response = await fetch("http://localhost:8000/getAllLeaves")
@@ -25,7 +49,8 @@ async function login(){
     const identity = new ZkIdentity(Strategy.MESSAGE, signature)
     const identityCommitment = identity.genIdentityCommitment()
     const identityCommitments = await getAllMembers(identityCommitment)
-    const indexIdentityCommitment = identityCommitments.indexOf(identityCommitment)
+    console.log(identityCommitments)
+    //const indexIdentityCommitment = identityCommitments.indexOf(identityCommitment)
 
     const merkleProof = generateMerkleProof(
         20, 
@@ -56,6 +81,7 @@ async function login(){
             'Content-Type': 'application/json'
         },
         body: JSON.stringify({
+        	signedMessage: signature,
             signal: signal,
             root: merkleProof.root.toString(),
             nullifierHash: publicSignals.nullifierHash.toString(),
@@ -64,8 +90,11 @@ async function login(){
         })
     })
     let result = await response.json()
-    if(result["sucess"]){
-        window.location = `http://3rdpartywebsite.one/?commitmentId=${identityCommitment}`
+    console.log(result)
+    if(result["success"]){
+        success("Redirecting...")
+    } else {
+    	error("Error Occured")
     }
     
 
@@ -82,6 +111,7 @@ function Login(){
         <div>
             <Button variant="outlined" size="large" className='register' onClick={login}> Login </Button>
         </div>
+        <ToastContainer/>
         </div>
     )
 }

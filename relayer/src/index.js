@@ -4,7 +4,9 @@ const dotenv = require("dotenv")
 const zkOauthABI = require("./ZKOauth.json")
 const cors = require("cors")
 const fs = require('fs');
-var bodyParser = require('body-parser')
+const jwt = require("jsonwebtoken")
+const { Strategy, ZkIdentity } = require("@zk-kit/identity")
+const bodyParser = require('body-parser')
 
 const app = express()
 app.use(cors());
@@ -14,7 +16,6 @@ dotenv.config({path: __dirname+"/../.env"})
 const ZK_CONTRACT_ADDRESS = process.env.ZK_CONTRACT_ADDRESS
 const PRIVATE_KEY = process.env.PRIVATE_KEY
 const PROVIDER_URL = process.env.PROVIDER_URL
-console.log(PROVIDER_URL, PRIVATE_KEY, ZK_CONTRACT_ADDRESS)
 
 var jsonParser = bodyParser.json()
 var urlencodedParser = bodyParser.urlencoded({ extended: false })
@@ -67,8 +68,10 @@ app.get("/ping",async  (req, res) => {
 })
 
 app.get("/getAllLeaves", async(req,res)=>{
-	var obj = JSON.parse(fs.readFileSync(__dirname+'/leaves.json', 'utf8'));
-	res.json(obj)
+	const contract = getContract();
+	const allMembers = contract.getMembers();
+	console.log(allMembers)
+	return allMembers
 })
 app.post("/register",jsonParser, async (req,res) => {
 	console.log(req.body.identityCommitment)
@@ -78,30 +81,31 @@ app.post("/register",jsonParser, async (req,res) => {
 	    if (err){
 	        console.log(err);
 	    } else {
-		    obj = JSON.parse(data); //now it an object
-		    obj.leaves.push(identityCommitment); //add some data
-		    json = JSON.stringify(obj); //convert it back to json
-		    fs.writeFile(__dirname+'/leaves.json', json, 'utf8',()=>{}); // write it back 
+		    obj = JSON.parse(data);
+		    obj.leaves.push(identityCommitment); 
+		    json = JSON.stringify(obj);
+		    fs.writeFile(__dirname+'/leaves.json', json, 'utf8',()=>{}); 
 		}
 	});
 
 	res.setHeader('Content-Type', 'application/json');
-	res.end(JSON.stringify({ "sucess": true }));
-	//res.sendStatus(200);
+	res.end(JSON.stringify({ "success": true }));
 })
-
+app.post("/getCommitmentID",  async (req,res) => {
+	const access_token = req.headers["authorization"]
+	const session = jwt.verify(access_token, PRIVATE_KEY)
+	res.json({
+		"id": session["id"]
+	})
+})
 app.post("/login",jsonParser, async (req,res) => {
-	// Get all parmam
+	const signedMessage = req.body.signedMessage
 	const signal = ethers.utils.formatBytes32String(req.body.signal)
 	const root = toBigInt(req.body.root)
 	const nullifierHash = toBigInt(req.body.nullifierHash)
 	const externalNullifier = toBigInt(req.body.externalNullifier)
 	const proof = req.body.proof
-	//proof.forEach((num,ind)=>{
-		//proof[ind] = toBigInt(num)
-	//})
-	//console.log(signal,nullifierHash,externalNullifier,proof)
-	// verify the membership 
+	
 	const contract = getContract()
 	const transaction = await contract.verifyMembership(
 		signal,
@@ -111,14 +115,23 @@ app.post("/login",jsonParser, async (req,res) => {
 		proof
 	)
 	const transactionReceipt = await transaction.wait()
-	//console.log(transactionReceipt.logs)
 	res.setHeader('Content-Type', 'application/json');
 	if (transactionReceipt.status !== 1) {
 	    console.log(transactionReceipt)
-	    res.end(JSON.stringify({ "sucess": false }));
+	    res.end(JSON.stringify({ "success": false , "token": null}));
 	}
 
-	res.end(JSON.stringify({ "sucess": true }));
+	const identity = new ZkIdentity(Strategy.MESSAGE, signedMessage)
+	const identityCommitment = identity.genIdentityCommitment()
+
+	const access_token = jwt.sign(
+	{
+		"id": identityCommitment.toString()
+	}, 
+		PRIVATE_KEY
+	)
+
+	res.end(JSON.stringify({ "success": true, "token": access_token }));
 		
 })
 

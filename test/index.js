@@ -35,28 +35,8 @@ describe("zkOauth", function () {
             contract.on("MemberAdded", (groupId, commitmentId) => {
                 console.log(groupId, commitmentId);
             });
-
-            /*const signal = "Login into test"
-            const bytes32Greeting = ethers.utils.formatBytes32String(signal)
-
-            const merkleProof = generateMerkleProof(20, BigInt(0), identityCommitments, identityCommitment)
-            const witness = Semaphore.genWitness(
-                identity.getTrapdoor(),
-                identity.getNullifier(),
-                merkleProof,
-                merkleProof.root,
-                signal
-            )
-
-            const fullProof = await Semaphore.genProof(witness, wasmFilePath, finalZkeyPath)
-            const solidityProof = Semaphore.packToSolidityProof(fullProof.proof)
-
-            const nullifierHash = Semaphore.genNullifierHash(merkleProof.root, identity.getNullifier())
-
-            const transaction = contract.greet(bytes32Greeting, nullifierHash, solidityProof)
-
-            await expect(transaction).to.emit(contract, "NewGreeting").withArgs(bytes32Greeting)*/
         })
+        
         it("Should Login", async () => {
             const message = await contractOwner.signMessage("Register: zkOauth")
 
@@ -94,7 +74,7 @@ describe("zkOauth", function () {
                 merkleProof.root,
                 solidityProof
             )
-            console.log(await transaction.wait())
+            console.log(transaction)
             //await expect(transaction).to.emit(contract, "NewGreeting").withArgs(bytes32Greeting)*/
         })
     })

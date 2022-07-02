@@ -1,44 +1,6 @@
 {
   "_format": "hh-sol-cache-2",
   "files": {
-    "/Users/0xrishabh/workspace/playground/zk-Oauth/contracts/Greeters.sol": {
-      "lastModificationDate": 1656244118843,
-      "contentHash": "02c0f9ed94ce25c663bec1e2e4c7cebf",
-      "sourceName": "contracts/Greeters.sol",
-      "solcConfig": {
-        "version": "0.8.4",
-        "settings": {
-          "optimizer": {
-            "enabled": false,
-            "runs": 200
-          },
-          "outputSelection": {
-            "*": {
-              "*": [
-                "abi",
-                "evm.bytecode",
-                "evm.deployedBytecode",
-                "evm.methodIdentifiers",
-                "metadata"
-              ],
-              "": [
-                "ast"
-              ]
-            }
-          }
-        }
-      },
-      "imports": [
-        "@appliedzkp/semaphore-contracts/base/SemaphoreCore.sol",
-        "@openzeppelin/contracts/access/Ownable.sol"
-      ],
-      "versionPragmas": [
-        "^0.8.4"
-      ],
-      "artifacts": [
-        "Greeters"
-      ]
-    },
     "/Users/0xrishabh/workspace/playground/zk-Oauth/node_modules/@appliedzkp/semaphore-contracts/base/SemaphoreCore.sol": {
       "lastModificationDate": 1656182326528,
       "contentHash": "be5664f8a04b06841bc193a29d45faa7",
@@ -78,8 +40,8 @@
       ]
     },
     "/Users/0xrishabh/workspace/playground/zk-Oauth/node_modules/@openzeppelin/contracts/access/Ownable.sol": {
-      "lastModificationDate": 1656182326769,
-      "contentHash": "8398972af73b4e9e5ff3b31cad86234f",
+      "lastModificationDate": 1656681269019,
+      "contentHash": "e436cea06129be2c73cda4b1acc848b5",
       "sourceName": "@openzeppelin/contracts/access/Ownable.sol",
       "solcConfig": {
         "version": "0.8.4",
@@ -401,8 +363,8 @@
       ]
     },
     "/Users/0xrishabh/workspace/playground/zk-Oauth/contracts/zkOauth.sol": {
-      "lastModificationDate": 1656361465518,
-      "contentHash": "e1783fb19aaa77a00fad8f792f1b8cdb",
+      "lastModificationDate": 1656693104963,
+      "contentHash": "d67fdf06ae56fc90e56544a267862cad",
       "sourceName": "contracts/zkOauth.sol",
       "solcConfig": {
         "version": "0.8.4",
@@ -429,7 +391,8 @@
       },
       "imports": [
         "@semaphore-protocol/contracts/base/SemaphoreCore.sol",
-        "@semaphore-protocol/contracts/base/SemaphoreGroups.sol"
+        "@semaphore-protocol/contracts/base/SemaphoreGroups.sol",
+        "@openzeppelin/contracts/access/Ownable.sol"
       ],
       "versionPragmas": [
         "^0.8.0"
