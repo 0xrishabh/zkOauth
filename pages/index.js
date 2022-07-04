@@ -45,18 +45,16 @@ export default function Home() {
       const signature = await signer.signMessage(message)
       const address = await signer.getAddress()
       console.log({ signer, signature, address })
-      const identity = new ZkIdentity(Strategy.MESSAGE, signature)
-      const identityCommitment = identity.genIdentityCommitment()
-      console.log(identityCommitment)    
 
-      const response = await fetch(`http://localhost:8000/register`, {
+
+      const response = await fetch(`/api/register`, {
           method: "POST",
           headers: {
             'Accept': 'application/json',
             'Content-Type': 'application/json'
           },
           body: JSON.stringify({
-            identityCommitment: identityCommitment.toString()
+            signature: signature
           })
       })
       const result = await response.json()

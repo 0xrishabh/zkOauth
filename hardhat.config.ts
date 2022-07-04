@@ -24,6 +24,10 @@ const config: HardhatUserConfig = {
             accounts: process.env.PRIVATE_KEY !== undefined ? [process.env.PRIVATE_KEY] : [],
 			gas: 2100000,
 			gasPrice: 8000000000
+        },
+        localhost:{
+            url: process.env.PROVIDER_URL || "" ,
+            accounts: process.env.PRIVATE_KEY !== undefined ? [process.env.PRIVATE_KEY] : [],
         }
     },
     gasReporter: {
