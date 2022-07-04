@@ -4,7 +4,7 @@ const {getContract} = require("./_utils")
 
 
 async function addMember(signature){
-	const contract = utils.getContract();
+	const contract = getContract();
 	const identity = new ZkIdentity(Strategy.MESSAGE, signature)
 	const identityCommitment = identity.genIdentityCommitment()
 	const abiCoder = new ethers.utils.AbiCoder();
@@ -12,7 +12,12 @@ async function addMember(signature){
 	  ['uint256'],
 	  [identityCommitment]
 	);
-	const transaction = await contract.addMember(formattedIdentityCommitment);
+	const transaction = await contract.addMember(
+		formattedIdentityCommitment,
+		{
+			gasLimit: 2100000,
+	  	}
+	);
 	const transactionReceipt = await transaction.wait();
 	if (transactionReceipt.status !== 1) {
 	  return false

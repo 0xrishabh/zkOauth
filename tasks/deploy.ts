@@ -31,6 +31,7 @@ task("deploy", "Deploy contract")
         })
         const zkOauth = await ZkOauth.deploy(verifier.address)
         await zkOauth.deployed()
+        console.log(zkOauth.address)
 
         return zkOauth
     })
