@@ -1,6 +1,6 @@
 const ethers = require("ethers");
 const { Strategy, ZkIdentity } = require("@zk-kit/identity")
-const zkOauthABI = require("./ZKOauth.json")
+const zkOauthABI = require("../ZKOauth.json")
 const ZK_CONTRACT_ADDRESS = process.env.ZK_CONTRACT_ADDRESS
 const PRIVATE_KEY = process.env.PRIVATE_KEY
 const PROVIDER_URL = process.env.PROVIDER_URL
