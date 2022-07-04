@@ -1,31 +1,14 @@
 const ethers = require("ethers")
 const jwt = require("jsonwebtoken")
-const zkOauthABI = require("../ZKOauth.json")
+const {getContract,toBigInt} = require("./_utils")
 const { Strategy, ZkIdentity } = require("@zk-kit/identity")
 const ZK_CONTRACT_ADDRESS = process.env.ZK_CONTRACT_ADDRESS
 const PRIVATE_KEY = process.env.PRIVATE_KEY
 const PROVIDER_URL = process.env.PROVIDER_URL
 
 
-function getContract() {
-  const provider = new ethers.providers.JsonRpcProvider(PROVIDER_URL);
-  const wallet = new ethers.Wallet(PRIVATE_KEY, provider);
-  const contract = new ethers.Contract(
-    ZK_CONTRACT_ADDRESS,
-    zkOauthABI['abi'],
-    wallet
-  );
-  return contract;
-}
-function toBigInt(number){
-	const abiCoder = new ethers.utils.AbiCoder();
-	const BNIdentityCommitment = ethers.BigNumber.from(number);
-	const formattedIdentityCommitment = abiCoder.encode(
-	    ['uint256'],
-	    [BNIdentityCommitment]
-	  );
-	return formattedIdentityCommitment
-}
+
+
 
 export default async function handler(req, res) {
     const signedMessage = req.body.signedMessage

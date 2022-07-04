@@ -7,6 +7,7 @@ import { generateMerkleProof,genExternalNullifier, Semaphore } from "@zk-kit/pro
 import styles from "../styles/Home.module.css"
 import { ToastContainer, toast } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
+
 const success = (message) => {
 	toast.success(message, {
 	  position: "bottom-right",

@@ -114,6 +114,7 @@ app.post("/login",jsonParser, async (req,res) => {
 		root,
 		proof
 	)
+	console.log()
 	const transactionReceipt = await transaction.wait()
 	res.setHeader('Content-Type', 'application/json');
 	if (transactionReceipt.status !== 1) {

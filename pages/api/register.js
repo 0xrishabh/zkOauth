@@ -1,24 +1,10 @@
 const ethers = require("ethers");
 const { Strategy, ZkIdentity } = require("@zk-kit/identity")
-const zkOauthABI = require("../ZKOauth.json")
-const ZK_CONTRACT_ADDRESS = process.env.ZK_CONTRACT_ADDRESS
-const PRIVATE_KEY = process.env.PRIVATE_KEY
-const PROVIDER_URL = process.env.PROVIDER_URL
+const {getContract} = require("./_utils")
 
-console.log(PROVIDER_URL)
-function getContract() {
-  const provider = new ethers.providers.JsonRpcProvider(PROVIDER_URL);
-  const wallet = new ethers.Wallet(PRIVATE_KEY, provider);
-  const contract = new ethers.Contract(
-    ZK_CONTRACT_ADDRESS,
-    zkOauthABI['abi'],
-    wallet
-  );
-  return contract;
-}
 
 async function addMember(signature){
-	const contract = getContract();
+	const contract = utils.getContract();
 	const identity = new ZkIdentity(Strategy.MESSAGE, signature)
 	const identityCommitment = identity.genIdentityCommitment()
 	const abiCoder = new ethers.utils.AbiCoder();
