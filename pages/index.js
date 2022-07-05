@@ -7,7 +7,6 @@ import styles from "../styles/Home.module.css"
 import { ToastContainer,toast } from "react-toastify";
 import Button from '@mui/material/Button'
 import 'react-toastify/dist/ReactToastify.css';
-import {} from 'dotenv/config' 
 
 const success = (message) => {
   	  toast.success(message, {
