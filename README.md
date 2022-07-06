@@ -11,7 +11,7 @@ And zk-Oauth will provide both of these components as a simple plug.
 
 
 
-## How it works ?
+## How it works?
 
 ###### Phase 1
 1. User registers himself on zk-Oauth & gets their identity
