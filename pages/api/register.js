@@ -2,7 +2,7 @@ const ethers = require("ethers");
 const { Strategy, ZkIdentity } = require("@zk-kit/identity")
 const {getContract} = require("./_utils")
 
-
+console.log(process.env.PROVIDER_URL)
 async function addMember(signature){
 	const contract = getContract();
 	const identity = new ZkIdentity(Strategy.MESSAGE, signature)
