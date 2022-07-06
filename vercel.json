@@ -1,6 +1,6 @@
 {
   "functions": {
-    "api/register.js": {
+    "pages/api/register.js": {
       "maxDuration": 60
     }
   }
