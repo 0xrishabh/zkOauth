@@ -10,8 +10,23 @@ For any apps that wants to protect user privacy, need to use two components -
 And zk-Oauth will provide both of these components as a simple plug.
 
 
+##Technology Stack
+
+##### Front-End
+	1. Next Js
+	2. material.js
+##### Backend
+	1. Solidity contract - zkOauth.sol
+	2. Semaphore - appliedzkp library
+	3. Relayer Api
+	
+##### Deployment -
+	1. Frontend and relayer API on Vercel
+	2. Smart Contract on goerli,Polygon mainnet,polygon mumbai,ropsten.
 
 ## How it works?
+
+![working](https://raw.githubusercontent.com/0xrishabh/zkOauth/master/working.jpg)
 
 ###### Phase 1
 1. User registers himself on zk-Oauth & gets their identity
