@@ -33,6 +33,7 @@ const error = (message) => {
 
 
 export default function Home() {
+	console.log(process.env.PROVIDER_URL)
     async function register(){
       const message = "Make me anonymous"
       if (typeof window.ethereum !== 'undefined') {
