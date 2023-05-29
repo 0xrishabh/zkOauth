@@ -29,7 +29,11 @@ const config: HardhatUserConfig = {
     	},
     	matic: {
     		url: process.env.MATIC_URL,
-    		accounts: process.env.PRIVATE_KEY !== undefined ? [process.env.PRIVATE_KEY] : [],	
+    		accounts: process.env.PRIVATE_KEY !== undefined ? [process.env.PRIVATE_KEY] : [],
+            timeout: 100000,
+            gas: 2100000,
+			gasPrice: 8000000000
+
     	},
         ropsten: {
             url: process.env.ROPSTEN_URL || "",
